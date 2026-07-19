@@ -37,18 +37,37 @@ const BASE_URL = process.env.BASE_URL || `http://localhost:${process.env.PORT ||
 
 // Serve generated ticket PDFs at /ticket-files
 app.use('/ticket-files', express.static(TICKETS_DIR));
-// Serve static JS/CSS assets from the React build
-app.use('/assets', express.static(path.join(__dirname, '../combined-app/dist/assets')));
 
 // ==================== SPA ROUTES — /tickets and /dashboard serve React app ====================
-const distIndexHtml = path.join(__dirname, '../combined-app/dist/index.html');
+// Try multiple candidate paths for the React build (handles local dev + Railway)
+const _distCandidates = [
+    path.join(__dirname, '../combined-app/dist'),
+    path.join(process.cwd(), 'combined-app/dist'),
+    path.join(process.cwd(), '../combined-app/dist'),
+    '/app/combined-app/dist',
+];
+const fs2 = require('fs');
+const _distDir = _distCandidates.find(p => fs2.existsSync(path.join(p, 'index.html'))) || _distCandidates[0];
+const distIndexHtml = path.join(_distDir, 'index.html');
+console.log(`React dist: ${_distDir} (exists: ${fs2.existsSync(distIndexHtml)})`);
+
+// Serve static JS/CSS assets from the React build
+app.use('/assets', express.static(path.join(_distDir, 'assets')));
+
 app.get('/tickets', (req, res) => res.sendFile(distIndexHtml));
 app.get('/tickets/:splat', (req, res) => res.sendFile(distIndexHtml));
 app.get('/dashboard', (req, res) => res.sendFile(distIndexHtml));
 app.get('/dashboard/:splat', (req, res) => res.sendFile(distIndexHtml));
 
 // Serve original Littlane HTML site (index.html + script.js + styles.css) for everything else
-app.use(express.static(path.join(__dirname, '..')));
+const _staticCandidates = [
+    path.join(__dirname, '..'),
+    process.cwd(),
+    '/app',
+];
+const _staticDir = _staticCandidates.find(p => fs2.existsSync(path.join(p, 'index.html'))) || _staticCandidates[0];
+console.log(`Static dir: ${_staticDir} (exists: ${fs2.existsSync(path.join(_staticDir, 'index.html'))})`);
+app.use(express.static(_staticDir));
 
 // ==================== HELPERS ====================
 function computeAmount(gender, quantity) {

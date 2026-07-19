@@ -2,6 +2,11 @@ node_modules/
 combined-app/node_modules/
 server/node_modules/
 combined-app/src/
+combined-app/public/
+combined-app/*.json
+combined-app/*.ts
+combined-app/*.js
 *.log
 .env
 server/tickets/
+server/data/
