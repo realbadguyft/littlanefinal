@@ -65,7 +65,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
-            padding: 1.5rem;
+            padding: 0;
         }
         .flyer-overlay.active {
             opacity: 1;
@@ -73,16 +73,13 @@
         }
         .flyer-container {
             position: relative;
-            max-width: 440px;
+            max-width: min(92vw, 480px);
             width: 100%;
-            background: #0d0d0f;
-            border-radius: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #000;
+            border-radius: 1.25rem;
             overflow: hidden;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(168, 85, 247, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(168, 85, 247, 0.15);
+            cursor: pointer;
             transform: scale(0.92);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -91,13 +88,13 @@
         }
         .flyer-close {
             position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
+            top: 0.9rem;
+            right: 0.9rem;
             width: 2.2rem;
             height: 2.2rem;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             font-size: 1.1rem;
             cursor: pointer;
@@ -115,57 +112,41 @@
         .flyer-img {
             width: 100%;
             height: auto;
-            max-height: 70vh;
-            object-fit: contain;
             display: block;
+            max-height: 88vh;
+            object-fit: cover;
         }
-        .flyer-actions {
-            width: 100%;
-            padding: 1.25rem 1.5rem;
-            background: #0d0d0f;
-            display: flex;
-            justify-content: center;
-            box-sizing: border-box;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .flyer-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #fff;
-            border: none;
-            border-radius: 1.2rem;
-            padding: 1.1rem;
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
-            transition: all 0.3s ease;
+        .flyer-selling-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.92));
+            padding: 2rem 1rem 1rem;
             text-align: center;
         }
-        .flyer-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
-            background: linear-gradient(135deg, #b55fe6 0%, #8b5cf6 100%);
+        @keyframes sellingPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.04); }
         }
-        .flyer-btn:active {
-            transform: translateY(1px);
+        .flyer-selling-text {
+            display: inline-block;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #F59E0B;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-shadow: 0 0 16px rgba(245, 158, 11, 0.7), 0 2px 4px rgba(0,0,0,0.8);
+            animation: sellingPulse 1.6s ease-in-out infinite;
         }
 
         @media (max-width: 480px) {
-            .flyer-overlay {
-                padding: 1rem;
-            }
             .flyer-container {
-                max-width: 100%;
-                border-radius: 1.5rem;
+                max-width: 96vw;
+                border-radius: 1rem;
             }
-            .flyer-img {
-                max-height: 60vh;
-            }
-            .flyer-actions {
-                padding: 1rem;
+            .flyer-selling-text {
+                font-size: 1rem;
             }
         }
     </style>
@@ -287,13 +268,11 @@
 
     <!-- ==================== EVENT FLYER POPUP ==================== -->
     <div class="flyer-overlay" id="flyerOverlay">
-        <div class="flyer-container" style="cursor: pointer; display: flex; flex-direction: column;">
+        <div class="flyer-container">
             <button class="flyer-close" id="flyerClose" aria-label="Close">✕</button>
-            <img class="flyer-img" id="flyerImg" src="images/event-poster.jpg" alt="Freshers Takeover Flyer" style="width: 100%; height: auto; display: block;">
-            <div style="width: 100%; background: #0d0d0f; padding: 1.25rem 1.5rem; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08); box-sizing: border-box;">
-                <span style="font-size: 1.15rem; font-weight: 900; color: #F59E0B; letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 0 12px rgba(245, 158, 11, 0.4); display: inline-block;">
-                    ⚡ Buy Fast - Selling Out! ⚡
-                </span>
+            <img class="flyer-img" id="flyerImg" src="images/event-poster.jpg" alt="Freshers Takeover Flyer">
+            <div class="flyer-selling-banner">
+                <span class="flyer-selling-text">⚡ Buy Fast — Selling Out! ⚡</span>
             </div>
         </div>
     </div>
