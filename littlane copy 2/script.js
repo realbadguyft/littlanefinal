@@ -142,9 +142,8 @@ class BookingPopup{
         // ==================== EVENT FLYER POPUP ====================
         // Init flyer BEFORE the early return so it always works
         this.flyerOverlay = document.getElementById('flyerOverlay');
-        this.flyerClose = document.getElementById('flyerClose');
-        this.flyerBookBtn = document.getElementById('flyerBookBtn');
-
+        this.flyerImg = document.getElementById('flyerImg');
+        
         if (this.flyerOverlay) {
             // Auto open the flyer after 1 second on page load
             setTimeout(() => {
@@ -158,14 +157,17 @@ class BookingPopup{
             };
 
             if (this.flyerClose) {
-                this.flyerClose.addEventListener('click', closeFlyer);
+                this.flyerClose.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeFlyer();
+                });
             }
             this.flyerOverlay.addEventListener('click', (e) => {
                 if (e.target === this.flyerOverlay) closeFlyer();
             });
 
-            if (this.flyerBookBtn) {
-                this.flyerBookBtn.addEventListener('click', () => {
+            if (this.flyerImg) {
+                this.flyerImg.addEventListener('click', () => {
                     closeFlyer();
                     setTimeout(() => { this.openBooking(); }, 400);
                 });
