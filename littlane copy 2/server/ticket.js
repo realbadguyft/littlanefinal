@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const QRCode = require('qrcode');
 const PDFDocument = require('pdfkit');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('crypto');
 
 const TICKETS_DIR = path.join(__dirname, 'tickets');
 if (!fs.existsSync(TICKETS_DIR)) fs.mkdirSync(TICKETS_DIR, { recursive: true });
@@ -30,7 +30,7 @@ const GENDER_LABEL = { female: 'Female Pass', male: 'Male Pass' };
 
 function generateTicketId() {
     // Short, human-readable, still unique: FT-XXXXXXXX
-    return `FT-${uuidv4().split('-')[0].toUpperCase()}`;
+    return `FT-${randomUUID().split('-')[0].toUpperCase()}`;
 }
 
 /** QR data URL for inline display in the browser / email (encodes the ticket ID). */
