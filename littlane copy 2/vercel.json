@@ -1,6 +1,7 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/assets/(.*)", "destination": "/combined-app/dist/assets/$1" },
     { "source": "/tickets", "destination": "/combined-app/dist/index.html" },
