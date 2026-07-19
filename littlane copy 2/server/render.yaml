@@ -9,7 +9,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
-        sync: false
+        value: mongodb+srv://atharvarathodft_db_user:z5xrhF8eJGEFNfzf@littlane.edwqy8q.mongodb.net/littlane?retryWrites=true&w=majority&appName=LITTLANE
       - key: RAZORPAY_KEY_ID
         value: rzp_live_TFRZBe5CTmpFvp
       - key: RAZORPAY_KEY_SECRET
