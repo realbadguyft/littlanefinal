@@ -287,9 +287,14 @@
 
     <!-- ==================== EVENT FLYER POPUP ==================== -->
     <div class="flyer-overlay" id="flyerOverlay">
-        <div class="flyer-container" style="cursor: pointer;">
+        <div class="flyer-container" style="cursor: pointer; display: flex; flex-direction: column;">
             <button class="flyer-close" id="flyerClose" aria-label="Close">✕</button>
-            <img class="flyer-img" id="flyerImg" src="images/event-poster.jpg" alt="Freshers Takeover Flyer">
+            <img class="flyer-img" id="flyerImg" src="images/event-poster.jpg" alt="Freshers Takeover Flyer" style="width: 100%; height: auto; display: block;">
+            <div style="width: 100%; background: #0d0d0f; padding: 1.25rem 1.5rem; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08); box-sizing: border-box;">
+                <span style="font-size: 1.15rem; font-weight: 900; color: #F59E0B; letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 0 12px rgba(245, 158, 11, 0.4); display: inline-block;">
+                    ⚡ Buy Fast - Selling Out! ⚡
+                </span>
+            </div>
         </div>
     </div>
 
