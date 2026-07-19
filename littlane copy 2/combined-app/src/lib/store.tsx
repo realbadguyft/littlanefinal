@@ -8,6 +8,7 @@ export interface Ticket {
   event: string
   attendee: string
   email: string
+  phone?: string
   dateLabel: string
   venue: string
   ticketType: TicketType
@@ -75,6 +76,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               event: sale.event || 'FRESHERS TAKEOVER',
               attendee: sale.name,
               email: sale.email,
+              phone: sale.phone || '',
               dateLabel: sale.generatedAt ? new Date(sale.generatedAt).toLocaleString() : 'TBA',
               venue: 'Symbiosis Grounds, Pune',
               ticketType: sale.gender === 'male' ? 'Male Pass' : sale.gender === 'female' ? 'Female Pass' : 'General',
@@ -183,13 +185,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             event: data.ticket.event,
             attendee: data.ticket.attendee,
             email: data.ticket.email,
+            phone: data.ticket.phone,
             dateLabel: 'TBA',
             venue: 'Symbiosis Grounds, Pune',
-            ticketType: data.ticket.ticketType,
-            price: '—',
-            qty: 1,
+            ticketType: data.ticket.ticketType === 'male' ? 'Male Pass' : data.ticket.ticketType === 'female' ? 'Female Pass' : 'General',
+            price: `₹${data.ticket.amount}`,
+            qty: data.ticket.quantity || 1,
             generatedBy: 'Admin',
-            generatedAt: 'TBA',
+            generatedAt: data.ticket.generatedAt ? new Date(data.ticket.generatedAt).toLocaleString() : 'TBA',
             status: 'scanned',
             scannedBy: data.ticket.scannedBy,
             scannedAt: data.ticket.scannedAt
@@ -198,6 +201,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             result: 'success',
             ticket: {
               ...matchedTicket,
+              phone: data.ticket.phone,
               status: 'scanned',
               scannedBy: data.ticket.scannedBy,
               scannedAt: data.ticket.scannedAt

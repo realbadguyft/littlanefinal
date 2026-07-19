@@ -20,8 +20,13 @@ export default function ScanSuccess({ dark, ticket, onBack, onScanNext }: Props)
   const rows = [
     { label: 'Ticket ID', value: `#${ticket.id}`, mono: true },
     { label: 'Attendee Name', value: ticket.attendee },
+    { label: 'Email', value: ticket.email },
+    { label: 'Phone', value: ticket.phone || 'N/A' },
+    { label: 'Gender', value: ticket.ticketType.replace(' Pass', '') },
     { label: 'Event', value: ticket.event },
-    { label: 'Ticket Type', value: `${ticket.ticketType} Admission` },
+    { label: 'Quantity', value: String(ticket.qty) },
+    { label: 'Price Paid', value: ticket.price },
+    { label: 'Purchased At', value: ticket.generatedAt },
   ]
 
   return (

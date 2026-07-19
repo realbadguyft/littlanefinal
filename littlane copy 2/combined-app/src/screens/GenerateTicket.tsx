@@ -73,8 +73,8 @@ export default function GenerateTicket({ dark, onBack, onGenerated }: Props) {
     fetch('/api/admin/config?key=' + (localStorage.getItem('ft_admin_key') || sessionStorage.getItem('ft_admin_key') || 'change-me-admin-key'))
       .then(r => r.json())
       .then(data => {
-        if (data.success && data.eventName) {
-          setEvent(data.eventName)
+        if (data.success && data.event) {
+          setEvent(data.event)
         }
       })
       .catch(() => {})

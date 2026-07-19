@@ -47,6 +47,127 @@
         #bookingPopup { border-radius: 1.5rem; background: var(--bg); overflow: hidden; }
         .littix-rate { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 1rem; text-align: center; }
         html[data-theme="light"] .littix-rate { color: #111111; }
+
+        /* ==================== EVENT FLYER POPUP STYLES ==================== */
+        .flyer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 1.5rem;
+        }
+        .flyer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .flyer-container {
+            position: relative;
+            max-width: 440px;
+            width: 100%;
+            background: #0d0d0f;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(168, 85, 247, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: scale(0.92);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .flyer-overlay.active .flyer-container {
+            transform: scale(1);
+        }
+        .flyer-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            z-index: 10;
+        }
+        .flyer-close:hover {
+            background: rgba(239, 68, 68, 0.9);
+            border-color: transparent;
+            transform: rotate(90deg);
+        }
+        .flyer-img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            display: block;
+        }
+        .flyer-actions {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: #0d0d0f;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .flyer-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            color: #fff;
+            border: none;
+            border-radius: 1.2rem;
+            padding: 1.1rem;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .flyer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+            background: linear-gradient(135deg, #b55fe6 0%, #8b5cf6 100%);
+        }
+        .flyer-btn:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 480px) {
+            .flyer-overlay {
+                padding: 1rem;
+            }
+            .flyer-container {
+                max-width: 100%;
+                border-radius: 1.5rem;
+            }
+            .flyer-img {
+                max-height: 60vh;
+            }
+            .flyer-actions {
+                padding: 1rem;
+            }
+        }
     </style>
     <div class="event-popup-overlay" id="bookingOverlay" style="display: none; align-items: center; justify-content: center;">
         <div class="event-popup" id="bookingPopup" style="max-width: 420px; width: 100%; padding: 2rem 1.5rem;">
@@ -57,7 +178,7 @@
                 <div style="display: flex; flex-direction: column; gap: 0.375rem; margin-bottom: 1.5rem;">
                     <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #A855F7;">FRESHERS TAKEOVER</span>
                     <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text); margin: 0;">Book Your Pass</h2>
-                    <p style="font-size: 0.875rem; color: #A0A0A0; margin: 0;">Female Pass ₹249 · Male Pass ₹349</p>
+                    <p style="font-size: 0.875rem; color: #A0A0A0; margin: 0;">Female Pass ₹2 · Male Pass ₹1</p>
                 </div>
                 <form id="ticketBookingForm" class="littix-form">
                     <div class="littix-field">
@@ -76,8 +197,8 @@
                         <div class="littix-field" style="flex: 1;">
                             <label class="littix-label" for="b_gender">Pass Type</label>
                             <select class="littix-input" id="b_gender" name="gender" required>
-                                <option value="female">Female Pass — ₹249</option>
-                                <option value="male">Male Pass — ₹349</option>
+                                <option value="female">Female Pass (₹2)</option>
+                                <option value="male">Male Pass (₹1)</option>
                             </select>
                         </div>
                         <div class="littix-field" style="width: 80px;">
@@ -150,7 +271,7 @@
                             <p style="font-size:0.68rem; color:#999; margin-top:0.4rem;">Show this QR code at entry</p>
                         </div>
 
-                        <p style="text-align:center; font-weight:800; color:#0d0d0f; margin:0;">Lit<span style="color:#A855F7;">tix</span> •</p>
+                        <p style="text-align:center; font-weight:800; color:#000000; margin:0; font-size:0.75rem; letter-spacing:0.05em;">LITTLANE ENTERTAINMENT</p>
                     </div>
                 </div>
 
@@ -163,6 +284,18 @@
             </div>
         </div>
     </div>
+
+    <!-- ==================== EVENT FLYER POPUP ==================== -->
+    <div class="flyer-overlay" id="flyerOverlay">
+        <div class="flyer-container">
+            <button class="flyer-close" id="flyerClose" aria-label="Close">✕</button>
+            <img class="flyer-img" src="/images/event-poster.jpg" alt="Freshers Takeover Flyer">
+            <div class="flyer-actions">
+                <button class="flyer-btn" id="flyerBookBtn">Book Tickets</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating event trigger (Removed for now) -->
     <!--
     <button class="event-trigger" id="eventTrigger" aria-label="Book Tickets">

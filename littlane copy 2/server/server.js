@@ -15,8 +15,8 @@ app.use(express.json());
 // ==================== EVENT & PRICING ====================
 const EVENT = { name: EVENT_NAME };
 const PRICING = {
-    female: 249,
-    male: 349
+    female: 2,
+    male: 1
 };
 
 // ==================== RAZORPAY SETUP ====================
@@ -407,7 +407,11 @@ app.post('/api/scan-ticket', async (req, res) => {
                     event: sale.event,
                     attendee: sale.name,
                     email: sale.email,
+                    phone: sale.phone,
                     ticketType: sale.gender,
+                    quantity: sale.quantity,
+                    amount: sale.amount,
+                    generatedAt: sale.generatedAt,
                     status: 'scanned',
                     scannedBy: sale.scannedBy,
                     scannedAt: sale.scannedAt
@@ -436,7 +440,11 @@ app.post('/api/scan-ticket', async (req, res) => {
                 event: updatedSale.event,
                 attendee: updatedSale.name,
                 email: updatedSale.email,
+                phone: updatedSale.phone,
                 ticketType: updatedSale.gender,
+                quantity: updatedSale.quantity,
+                amount: updatedSale.amount,
+                generatedAt: updatedSale.generatedAt,
                 status: 'scanned',
                 scannedBy: updatedSale.scannedBy,
                 scannedAt: updatedSale.scannedAt

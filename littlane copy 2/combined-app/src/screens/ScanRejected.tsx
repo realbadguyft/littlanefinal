@@ -112,7 +112,13 @@ export default function ScanRejected({ dark, ticket, notFoundId, onBack, onScanN
             [
               { label: 'Ticket ID', value: `#${ticket!.id}`, mono: true },
               { label: 'Attendee Name', value: ticket!.attendee },
+              { label: 'Email', value: ticket!.email },
+              { label: 'Phone', value: ticket!.phone || 'N/A' },
+              { label: 'Gender', value: ticket!.ticketType.replace(' Pass', '') },
               { label: 'Event', value: ticket!.event },
+              { label: 'Quantity', value: String(ticket!.qty) },
+              { label: 'Price Paid', value: ticket!.price },
+              { label: 'Purchased At', value: ticket!.generatedAt },
             ].map(({ label, value, mono }, i) => (
               <motion.div
                 key={label}

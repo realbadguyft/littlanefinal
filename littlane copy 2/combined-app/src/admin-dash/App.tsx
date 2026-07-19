@@ -137,7 +137,7 @@ export default function App() {
   const [manualPhone, setManualPhone] = useState('')
   const [manualGender, setManualGender] = useState('male')
   const [manualQty, setManualQty] = useState('1')
-  const [manualAmount, setManualAmount] = useState('349')
+  const [manualAmount, setManualAmount] = useState('1')
   const [manualEvent, setManualEvent] = useState('FRESHERS TAKEOVER')
 
   const fetchSales = async () => {
@@ -223,6 +223,7 @@ export default function App() {
         setManualName('')
         setManualEmail('')
         setManualPhone('')
+        setManualAmount('2')
         fetchSales()
       } else {
         alert(`Failed: ${data.message}`)
@@ -235,9 +236,9 @@ export default function App() {
   const handleManualGenderChange = (val: string) => {
     setManualGender(val)
     if (val === 'male') {
-      setManualAmount('349')
+      setManualAmount('1')
     } else if (val === 'female') {
-      setManualAmount('249')
+      setManualAmount('2')
     }
   }
 
@@ -522,8 +523,8 @@ export default function App() {
                     onChange={e => handleManualGenderChange(e.target.value)}
                     style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--muted)', color: 'var(--foreground)' }}
                   >
-                    <option value="male">Male Pass (₹349)</option>
-                    <option value="female">Female Pass (₹249)</option>
+                    <option value="male">Male Pass (₹1)</option>
+                    <option value="female">Female Pass (₹2)</option>
                     <option value="VIP">VIP Ticket (₹189)</option>
                     <option value="Backstage">Backstage (₹349)</option>
                   </select>

@@ -123,7 +123,7 @@ class TextScramble{
 }
 
 /* ==================== BOOKING POPUP (FRESHERS TAKEOVER) ==================== */
-const FT_PRICING = { female: 249, male: 349 };
+const FT_PRICING = { female: 2, male: 1 };
 
 class BookingPopup{
     constructor(){
@@ -138,6 +138,39 @@ class BookingPopup{
         this.submitBtn = document.getElementById('b_submitBtn');
         this.submitLabel = document.getElementById('b_submitLabel');
         this.apiBase = window.LITTLANE_API_BASE || 'http://localhost:3000';
+
+        // ==================== EVENT FLYER POPUP ====================
+        // Init flyer BEFORE the early return so it always works
+        this.flyerOverlay = document.getElementById('flyerOverlay');
+        this.flyerClose = document.getElementById('flyerClose');
+        this.flyerBookBtn = document.getElementById('flyerBookBtn');
+
+        if (this.flyerOverlay) {
+            // Auto open the flyer after 1 second on page load
+            setTimeout(() => {
+                this.flyerOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 1000);
+
+            const closeFlyer = () => {
+                this.flyerOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            if (this.flyerClose) {
+                this.flyerClose.addEventListener('click', closeFlyer);
+            }
+            this.flyerOverlay.addEventListener('click', (e) => {
+                if (e.target === this.flyerOverlay) closeFlyer();
+            });
+
+            if (this.flyerBookBtn) {
+                this.flyerBookBtn.addEventListener('click', () => {
+                    closeFlyer();
+                    setTimeout(() => { this.openBooking(); }, 400);
+                });
+            }
+        }
 
         if(!this.bookingOverlay)return;
 
@@ -157,7 +190,7 @@ class BookingPopup{
         });
 
         this.bookingClose.addEventListener('click', () => this.closeBooking());
-        this.bookingOverlay.addEventListener('click', e => {if(e.target===this.bookingOverlay)this.closeBooking()});
+        this.bookingOverlay.addEventListener('click', e =>{if(e.target===this.bookingOverlay)this.closeBooking()});
 
         // Rate calculation logic
         const calculateRate = () => {
@@ -176,8 +209,6 @@ class BookingPopup{
             this.handleSubmit();
         });
 
-        // Auto show after 5s
-        setTimeout(()=>{if(!this.hasOpened)this.openBooking()}, 5000);
     }
 
     showError(msg){

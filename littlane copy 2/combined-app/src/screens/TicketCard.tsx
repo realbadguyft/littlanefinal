@@ -70,12 +70,12 @@ export default function TicketCard({ dark, ticket, onBack }: Props) {
           animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="relative overflow-hidden">
+          <div class="relative overflow-hidden">
             <motion.img
-              src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=750&h=280&fit=crop&auto=format"
-              alt="Festival crowd"
+              src="/images/freshers-takeover-banner.png"
+              alt="Freshers Takeover Banner"
               className="w-full object-cover"
-              style={{ height: 160 }}
+              style={{ height: 180 }}
               initial={{ scale: 1.15, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -133,6 +133,21 @@ export default function TicketCard({ dark, ticket, onBack }: Props) {
 
             <div className={`h-px ${divider} my-4`} />
 
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <p className={`text-[10px] uppercase tracking-wider font-medium ${subText}`}>Attendee</p>
+                <p className={`text-sm font-semibold mt-0.5 ${text}`}>{ticket.attendee}</p>
+              </div>
+              {ticket.phone && (
+                <div className="text-right">
+                  <p className={`text-[10px] uppercase tracking-wider font-medium ${subText}`}>Phone</p>
+                  <p className={`text-sm font-semibold mt-0.5 ${text}`}>{ticket.phone}</p>
+                </div>
+              )}
+            </div>
+
+            <div className={`h-px ${divider} my-4`} />
+
             <div className="flex items-center justify-between">
               <div>
                 <p className={`text-[10px] uppercase tracking-wider font-medium ${subText}`}>Ticket Type</p>
@@ -184,7 +199,7 @@ export default function TicketCard({ dark, ticket, onBack }: Props) {
               >
                 <QRCode value={`LITTIX:${ticket.id}`} size={144} />
               </motion.div>
-              <LittixLogo dark={dark} size="sm" animated={false} />
+              <p className={`text-xs font-black tracking-wider ${dark ? 'text-white' : 'text-black'}`}>LITTLANE ENTERTAINMENT</p>
             </div>
           </motion.div>
         </motion.div>
