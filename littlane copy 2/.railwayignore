@@ -1,0 +1,7 @@
+node_modules/
+combined-app/node_modules/
+server/node_modules/
+combined-app/src/
+*.log
+.env
+server/tickets/
