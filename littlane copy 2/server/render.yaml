@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: littlane-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        value: rzp_live_TFRZBe5CTmpFvp
+      - key: RAZORPAY_KEY_SECRET
+        value: qPR3WXy0Ey42HSPqZsuZqcU5
+      - key: SMTP_USER
+        value: arnexora@gmail.com
+      - key: SMTP_PASS
+        value: nhqxcpbnfvidvjad
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: ADMIN_KEY
+        value: littlane2024
+      - key: BASE_URL
+        sync: false
